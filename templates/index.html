@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;1,100&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="static/styles/style.css">
+    <link rel="stylesheet" href="static/styles/output.css">
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Cardápio Digital" />
+    <meta property="og:description" content="Criado por FinTech" />
+    <meta property="og:site_name" content="FinTech-Cardapio Digital" />
+
+    <title>Cardapio Digital</title>
+</head>
+
+<body>
+    <header class="w-full h-[420px] bg-zinc-900 bg-home bg-cover bg-center">
+        <div class="w-full h-full flex flex-col justify-center items-center">
+            <img class="w-32 h-32 rounded-full shadow-lg hover:scale-110 duration-200" src="/static/imagens/hamb-1.png"
+                alt="logodevburguer">
+
+            <h1 class="text-3xl mt-4 mb-2 font-bold text-white">Cardápio Digital</h1>
+            <span class="text-white font-medium">Rua Thomás Aragão-312, Bairro Terrenos Novos</span>
+
+            <div class="bg-green-600 px-4 py-1 rounded-lg mt-4" id="date-span">
+                <span class="text-white font-medium">Seg à Dom - 18:00 as 22:00</span>
+            </div>
+        </div>
+    </header>
+
+    <h2 class="text-2xl md:text-3xl font-bold text-center mt-9 mb-6">
+        Conheça Nosso Menu
+    </h2>
+
+    <div id="menu">
+        <main class="grid grid-cols-1 md:grid-cols-2 gap-7 md:gap-10 mx-auto max-w-7xl px-2 mb-16">
+            {% for item in items %}
+            <div class="menu-item">
+                {% if item.image %}
+                <img src="{{ url_for('static', filename='uploads/' + item.image) }}" alt="Imagem do item" width="100">
+                <h3>{{ item.name }}</h3>
+                <p>{{ item.descrip }}</p>
+                <p>R$ {{ item.price }}</p>
+
+                {% else %}
+                <p>Nenhuma imagem disponível</p>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </main>
+        
+
+        <div class="mx-auto max-w-7xl px-2 my-2">
+            <h2 class="font-bold text-3xl p-5">Bebidas</h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-7 md:gap-10 mx-auto max-w-7xl px-2 mb-16" id="menu">
+
+        </div>
+    </div>
+    <!--Fim do menu-->
+
+    <!--Modal-->
+    <div id="cart-modal"
+        class="bg-black/50 w-full h-full fixed top-0 left-0 z-[99] items-center justify-center hidden scroll-m-5">
+        <div id="cart" class="bg-white p-5 rounded-md min-w-[90%] md:min-w-[600px] min-h[600px] overflow-auto">
+            <h2 class="text-center text-bold text-2xl mb-2">Meu carrinho</h2>
+            <div id="cart-items" class="flex justify-between mb-2 flex-col "></div>
+
+            <p class="font-bold">Total: <span id="cart-total">0.00</span></p>
+            <p class="font-bold">Observação:</p>
+            <input type="text" placeholder="Ex: Retirar cebola" id="obs" class="w-full border-2 p-1 rounded my-1">
+            <hr class="border-spacing-7">
+            <br>
+            <!--INICIO DOS INPUTS-->
+            <p class="font-bold">Endereço de Entrega</p>
+            <p>Nome:</p>
+            <input type="text" placeholder="Digite seu nome" id="name" class="w-full border-2 p-1 rounded my-1">
+            <p class="text-red-500 hidden" id="name-warn">Infome seu nome!</p>
+
+            <p>Telefone:</p>
+            <input type="number" placeholder="Telefone" id="fone" class="w-full border-2 p-1 rounded my-1">
+            <p class="text-red-500 hidden" id="fone-warn">Infome seu telefone!</p>
+
+
+            <p>Rua:</p>
+            <input type="text" placeholder="Rua" id="rua" class="w-full border-2 p-1 rounded my-1">
+            <p class="text-red-500 hidden" id="rua-warn">Informe sua Rua!</p>
+
+            <p>Bairro:</p>
+            <input type="text" placeholder="Bairro" id="bairro" class="w-full border-2 p-1 rounded my-1">
+            <p class="text-red-500 hidden" id="bairro-warn">Informe seu Bairro!</p>
+
+            <p>Número da residência:</p>
+            <input type="number" placeholder="Número da residência" id="housenumber"
+                class="w-full border-2 p-1 rounded my-1">
+            <p class="text-red-500 hidden" id="hnumber-warn">Informe o número!</p>
+
+            <p>Complemento:</p>
+            <input type="text" placeholder="Complemento" id="complemento" class="w-full border-2 p-1 rounded my-1">
+            <br><br>
+
+
+            <form>
+                <p class="font-bold">Forma de pagamento:</p>
+                <input type="radio" id="cartao" name="pay" value="Cartão">
+                <label for="pay1">Cartão</label><i class="fa-regular fa-credit-card p-1"  style="color:#9636BF;"></i><br>
+
+                <input type="radio" id="pix" name="pay" value="Pix">
+                <label for="pay2">Pix</label><i class="fa-brands fa-pix p-1 "></i><br>
+
+                <input type="radio" id="dinheiro" name="pay" value="Dinheiro">
+                <label for="pay3">Dinheiro</label><i class="fa-solid fa-money-bill p-1" style="color:#22c55e;"></i><br>
+
+                <p id="payform"></p>
+                <div id="InputTroco"></div>
+
+                <hr>
+
+                <p class="font-bold">Retirada:</p>
+                <input type="radio" id="delivery-no" name="delivery" value="Retirada na loja">
+                <label for="retirada1">Retirada na loja</label>
+                <br>
+
+                <input type="radio" id="delivery-yes" name="delivery" value="Delivery">
+                <label for="retirada2">Entrega - taxa(R$5,00)</label>
+
+            </form>
+
+            
+            <!--FIM DOS INPUTS-->
+
+
+
+            <div class="flex items-center justify-between mt-5 w-full">
+                <button id="close-modal-btn">Fechar</button>
+                <button id="checkout-btn" class="bg-green-500 text-white px-4 py-1 rounded">Finalizar pedido</button>
+            </div>
+
+        </div>
+    </div>
+    <!--Fim do Modal-->
+
+    <footer class="w-full bg-red-500 py-2 fixed bottom-0 z-40 flex items-center justify-center">
+        <button class="flex items-center gap-2 text-white font-bold" id="cart-btn">
+            (<span id="cart-count">0</span>)
+            Ver Carrinho
+            <i class="fa fa-cart-plus text-lg text-white"></i>
+        </button>
+    </footer>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script src="/static/js/script.js"></script>
+</body>
+
+</html>

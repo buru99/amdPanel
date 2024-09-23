@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dados Cadastrados</title>
+    <style>
+        table {
+            border: solid;
+            border-width: 1px;
+        }
+        td {
+            border: solid;
+            border-width: 1px;
+        }
+        th {
+            border: solid;
+            border-width: 1px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Dados Cadastrados</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>descrição</th>
+                <th>preço</th>
+                <th>Image</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.name }}</td>
+                <td>{{ user.descrip }}</td>
+                <td>{{ user.price }}</td>
+                <td>
+                    {% if user.image %}
+                        <img src="{{ url_for('static', filename='uploads/' + user.image) }}" alt="Imagem" width="100">
+                    {% else %}
+                        Nenhuma imagem
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <br>
+    <a href="/cadastro">Voltar ao Cadastro</a>
+</body>
+</html>

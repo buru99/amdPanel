@@ -1,0 +1,73 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.bg-home {
+    background-image: url('/static/imagens/bg.png');
+}
+
+body {
+    background-color: #F6F7F8;
+}
+
+.add-to-cart-btn{
+    transition: transform 0.3s ease;
+}
+
+.add-to-cart-btn:hover{
+    background-color: #22c55e;
+    transform: scale(1.1);
+}
+
+
+#cart{
+    overflow-y: scroll;
+    width: 50%;
+    height: 80%;  
+}
+
+.counter {
+    width: 20%;
+    gap: 20px;
+}
+
+.fa-brands {
+    color: #04BFAD;
+}
+.fa-solid {
+    margin:0%;
+    padding: 0;
+}
+.remove-from-cart-btn {
+    font-size: xx-large;
+}
+
+.add-to-cart-btn {
+    font-size: x-large;
+}
+
+#counter-btn{
+    background-color: white;
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+}
+
+#counter-btn:hover {
+    transform: scale(1.1);
+    color: red;
+}
+
+
+
+@media screen and (max-width: 450px) {
+    #cart{
+        overflow-y: scroll;
+        width: 95%;
+        height: 90%;  
+    }
+}
+
+
+
+
+
