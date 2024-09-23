@@ -12,10 +12,11 @@ if not os.path.exists(app.config['UPLOAD_FOLDER']):
     os.makedirs(app.config['UPLOAD_FOLDER'])
 
 db_config = {
-    'host': 'localhost',
+    'host': 'autorack.proxy.rlwy.net',
+    'port': '24211',
     'user': 'root',
-    'password': '',
-    'database': 'cadastros'
+    'password': 'hsMAIjKcOtcOebXhNKrweIQSqdFCfTRO',
+    'database': 'railway'
 }
 
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'bmp', 'tiff'}
